@@ -1,3 +1,4 @@
+
 * {
     color: #ffffff;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
@@ -5,7 +6,7 @@
 }
 
 body {
-    background-color: #121213;
+     background-color: #6a6b74; 
 }
 
 .game-container {
@@ -64,5 +65,33 @@ body {
     margin: 2px;
 }
 .message-container{
-    height:30px
+    height:30px;
+    
 }
+
+#overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal{
+    max-width: 600px;
+    height: 300px;
+    margin: auto;
+    text-align: center;
+    padding: 70px 0;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+

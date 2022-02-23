@@ -1,6 +1,11 @@
 const keyboard = document.querySelector('.key-container')
 const tileDisplay = document.querySelector('.tile-container')
+const message = document.querySelector('.message-container')
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+const rand_num = getRandomInt(2309)
 
 const keys = [
     'Q',
@@ -69,22 +74,28 @@ keys.forEach(key => {
     keyboard.append(buttonElement)
 })
 
-const handleClick = (key) => {
-    console.log("Worked", key)
-    if (key === '«'){
-        deleteLetter()
-    }
-    if (key === 'ENTER'){
-        if (currentTile == 5){
-            checker()
-        }
+function pop_up(time, word) {
+    const overlay = document.querySelector("#overlay");
+    overlay.style.display = "block"
+    const modal = document.querySelector("#modal")
+    modal.innerHTML = "Concrate the Word was " + word + "<br> <br> I hope you feel good about yourself <br> <br> You won a shitty word game <br> <br> Good for You!!"
+    setTimeout(close, time)
 
-        console.log("Not enough letters")
-    } 
-    if (key != '«' && key != 'ENTER' ) {
-    addLetter(key)
-    }
 }
+function close(){
+        overlay.style.display = "none"
+     
+}
+
+function message_display(time){
+    message.textContent = "That's Not a Word"
+    setTimeout(mess_gone, time)
+}
+function mess_gone(){
+    message.textContent = ""
+}
+
+
 
 function addLetter(letter) {
     if (currentTile < 5 && currentRow < 6){
@@ -93,6 +104,7 @@ function addLetter(letter) {
     guessRows[currentRow][currentTile] = letter
     tile.setAttribute('data', letter)
     currentTile++
+    console.log("Worked", letter)
     }
 
 } 
@@ -103,8 +115,10 @@ function deleteLetter() {
     tile.textContent = ''
     guessRows[currentRow][currentTile] = ''
     tile.setAttribute('data', '')
+    console.log(guessRows[currentRow])
     }
 }
+
 
 function checker(){
     const word = guessRows[currentRow]
@@ -113,7 +127,107 @@ function checker(){
         final_word = final_word.concat(letter)
     })
     final_word = final_word.toLowerCase()
+    console.log(final_word)
+    
+    
+    
     
     console.log(final_word)
+    $.ajax({
+        url: 'game',
+        type: 'get',
+        data: {
+          guess : final_word
+        },
+        success: change_colours,
+            
+            
+          /*$(".message").text(response.name)*/
+          /*$('#second').append('<li>' + response.second + '<li>') */
+        
+      }) 
+    
+     
 }
+
+function addColourToKey (colours) {
+    for (let i = 0; i < 5; i++) {
+        let key = document.getElementById(guessRows[currentRow][i])
+        let keyColour = window.getComputedStyle(key).backgroundColor;
+        if (keyColour == '#ffc425') {
+            if (colours[i] == "#008000") {
+                key.style.background=colours[i]
+            }
+        if (keyColour == "#A9A9A9" || keyColour == "#818384") {
+            key.style.background=colours[i]
+        }
+
+        }
+        document.getElementById(guessRows[currentRow][i]).style.background=colours[i]
+    }
+}
+
+
+function change_colours(response){
+    var colours = response;
+    colours = Object.values(colours)
+    colours = colours[0]
+    var checker = "True"
+    if (colours[0] != "False") {
+    for (let i = 0; i < 5; i++) {
+        document.getElementById("guessRow-" + currentRow + '-tile-' + i).style.background=colours[i]
+        console.log(colours[i])
+        if (colours[i] != "#008000") {
+            checker = "False"
+        }
+        
+    }
+    if (checker == "True") {
+        setTimeout(function() {pop_up(10000, colours[5])}, 1000)
+    }
+    if (currentRow != 5) {
+        addColourToKey(colours)
+        currentRow = currentRow + 1
+        currentTile = 0
+    }
+    else {
+        /*
+        const messElement =  document.getElementById('mess')
+        messElement.textContent = "Congrats"
+        */
+       
+        setTimeout(function() {pop_up(10000, colours[5])}, 1000)
+        
+    }
+}
+    else{
+        message_display(800)
+    }
+}
+     
+
+
+
+const handleClick = (key) => {
+    if (key === '«'){
+        deleteLetter()
+    }
+    
+    else if (key === 'ENTER'){
+        if (currentTile == 5){
+            console.log("Entered")
+            checker()
+
+        }
+        
+        else{
+        console.log("Not enough letters")
+        }
+        
+    } 
+    if (key != '«' && key != 'ENTER' ) {
+    addLetter(key)
+    }
+}
+
 

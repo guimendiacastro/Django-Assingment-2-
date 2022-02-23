@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+   <!-- <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src = "{% static 'tester.js' %}"defer></script>
     <title>Document</title>
 </head>
@@ -23,9 +24,12 @@
         Enter 2 : <input type = "text" name = "num4"><br>
         <input type = "submit">
     </form>
-    <h1> Result is {{result}}</h1>
- <!--   <button id="myBtn">Try it</button>
-    <h1 id = "demo">H</h1>
--->
+    <h1 id="butt"> Result is {{result}}</h1>
+    <button type ="button" class="btn btn-success btn-lg">Tr it</button>
+    <h1 class="message"></h1>
+    <ul id = "second">
+
+    </ul>
+
 </body>
 </html>
