@@ -7,8 +7,6 @@ function getRandomInt(max) {
   }
 const rand_num = getRandomInt(2309)
 
-
-console.log("EHEHEHEH")
 const keys = [
     'Q',
     'W',
