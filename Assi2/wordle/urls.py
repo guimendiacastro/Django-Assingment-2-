@@ -9,4 +9,5 @@ urlpatterns = [
     path('add', views.add, name = 'add'),
     path('add2', views.add2, name = 'add2'),
     path('out', AjaxHandlerView1.as_view()),
+    path('search', views.word, name = 'word')
 ]
