@@ -8,6 +8,7 @@ from wordle.words import all, answers
 import random
 from wordle.wordbank import wordToUse
 from itertools import chain
+from random import shuffle
 # Create your views here.
 
 def home(request):
@@ -111,6 +112,7 @@ def word(request):
     print(boardset)
     print(searchWord,'!')
     boardset = list(chain.from_iterable(boardset))
+    print(boardset)
     boardset = ''.join([str(char) for char in boardset])
     return render(request, 'wordpage.html', {'boardSet': boardset, 'searchWords': searchWord})
 
@@ -199,3 +201,87 @@ def createSearch():
                 success = True
     fillRest(board)
     return board, useWords
+
+def sudoku(request):
+    grid = createSudoku([[' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',],
+        [' ',' ',' ',' ',' ',' ',' ',' ',' ',]])
+    for i in range (58):
+        remove = False
+        while remove == False:
+            row = random.randint(0,8)
+            column = random.randint(0,8)
+            if grid[row][column] != ' ': 
+                grid[row][column] = ' '
+                remove = True
+    print(grid)
+    print(grid[0])
+    gridString = list(chain.from_iterable(grid))
+    print(gridString)
+    gridString = ''.join([str(char) for char in gridString])
+    print('yo')
+    print(gridString)
+    print("hey")
+    print(gridString ,'gridstring')
+    return render(request, 'sudoku.html', {'gridString': gridString})
+
+
+def gridFull(grid):
+    for row in range(0,9):
+        for column in range(0,9):
+            if grid[row][column]== " ":
+                return False
+    return True
+
+def createSudoku(grid):
+        print(grid)
+        nums = [1,2,3,4,5,6,7,8,9]
+        for i in range(0,81):
+            row = i//9
+            column = i%9
+            if grid[row][column] == ' ':
+                shuffle(nums)
+                for x in nums:
+                    print(x)
+                    if x not in grid[row]:
+                        print("passed 1")
+                        if x not in ([grid[0][column],grid[1][column],grid[2][column],grid[3][column],grid[4][column],grid[5][column],grid[6][column],grid[7][column],grid[8][column]]):
+                            print("passed 2")
+                            box = []
+                            if row<3:
+                                if column<3:
+                                    box=[grid[j][0:3] for j in range(0,3)]
+                                elif column <6 :
+                                    box=[grid[j][3:6] for j in range(0,3)]
+                                else:
+                                    box=[grid[j][6:9] for j in range(0,3)]
+                            elif row<6:
+                                if column<3:
+                                    box=[grid[j][0:3] for j in range(3,6)]
+                                elif column <6 :
+                                    box=[grid[j][3:6] for j in range(3,6)]
+                                else:
+                                    box=[grid[j][6:9] for j in range(3,6)]
+                            elif row<9:
+                                if column<3:
+                                    box=[grid[j][0:3] for j in range(6,9)]
+                                elif column <6 :
+                                    box=[grid[j][3:6] for j in range(6,9)]
+                                else:
+                                    box=[grid[j][6:9] for j in range(6,9)]
+                            if x not in box[0]and x not in box[1] and x not in box[2]:
+                                grid[row][column] = x
+                                if gridFull(grid) == True:
+                                    return grid
+                                else:
+                                    new = createSudoku(grid)
+                                    if new:
+                                        return new
+                break                                                    
+        grid[row][column] = " "

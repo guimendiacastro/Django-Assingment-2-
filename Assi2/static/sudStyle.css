@@ -1,0 +1,56 @@
+* {
+    color: #ffffff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+body{
+    background-color: #6a6b74;
+}
+
+.game-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.title-container{
+    text-align: center;
+    width: 510px;
+    border-bottom: solid 1px #3a3a3c;
+    background-color: #818384;
+}
+
+.sudGrid{
+    height: 600px;
+    width: 600px;
+    border: 2px solid #3a3a3c;
+}
+
+td{
+    width: 20px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #3a3a3c;
+    font-size: 10;
+
+}
+
+.hideChar{
+    display: none;
+    color: #818384;
+}
+
+.inpSpa{
+    width: 22px;
+    height: 22px;
+    background-color: #818384;
+    font-size: large;
+    text-align: center;
+    outline:0;
+    border-width: 0 0 2px;
+    border-color: #3a3a3c;
+}

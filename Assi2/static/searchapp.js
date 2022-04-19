@@ -20,10 +20,6 @@ function splitArray(arr, len){
 
 var boardRows = document.getElementById('useList').innerHTML
 console.log(boardRows)
-//boardRows = boardRows.split('],')
-//boardRows.forEach((place) => {
-//    place  = place.concat('],')
-//})
 boardRows = Array.from(boardRows)
 console.log(boardRows)
 boardRows.shift()
@@ -56,10 +52,10 @@ boardRows.forEach((row, rowNum) => {
     })
     console.log(rowElement.id)
     boardContainer.append(rowElement)
-    const subButton = document.createElement('button')
-    subButton.setAttribute('id', 'sub')
-    subButton.setAttribute('type', 'submit')
-    subButton.setAttribute('form', 'subForm')
+//    const subButton = document.createElement('button')
+//    subButton.setAttribute('id', 'sub')
+//    subButton.setAttribute('type', 'submit')
+//    subButton.setAttribute('form', 'subForm')
 })
 
 function handleClick(row,column,box){

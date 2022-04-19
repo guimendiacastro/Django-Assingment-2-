@@ -17,9 +17,10 @@ body{
 }
 
 .board-container{
-    width: 330px;
-    height: 330px;
+    width: 500px;
+    height: 500px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 
