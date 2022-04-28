@@ -54,3 +54,11 @@ td{
     border-width: 0 0 2px;
     border-color: #3a3a3c;
 }
+
+.subButton{
+    text-align: center;
+    font-size: large;
+    background-color: #818384;
+    border-color: #3a3a3c;
+    align-self: center;
+}

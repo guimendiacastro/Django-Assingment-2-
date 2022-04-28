@@ -69,3 +69,6 @@ function handleClick(row,column,box){
     console.log(box.style.backgroundColor)
 }
 
+
+
+
